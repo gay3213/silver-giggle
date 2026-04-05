@@ -1,34 +1,22 @@
-# =============================================
-# Zombie Apocalypse Recipe dla txAdmin
-# Autor: Grok dla Ciebie
-# Wersja: 1.0
-# =============================================
-
-version: 1.0
 name: Zombie Apocalypse Localhost
-author: Grok
-description: Pełny zombie mod + zniszczone wieżowce + safe zones + loot + budowanie
+version: 1.1
+author: Grok dla Ciebie
+description: Standalone zombie + zniszczone wieżowce + safe zones + loot
 
 tasks:
-  - action: rolePLAY
-    value: "🧟 Zombie Apocalypse - Localhost"
+  # Pobierz system zombie (standalone)
+  - action: download_github
+    src: WeponzTV/Standalone-Zombie-System
+    ref: main
+    dest: resources/[zombie]/standalone-zombies
 
-  - action: download_file
-    url: https://github.com/WeponzTV/Standalone-Zombie-System/archive/refs/heads/main.zip
-    path: resources/[zombie]/standalone-zombies.zip
-    extract: true
+  # Pobierz mapę z zniszczonymi budynkami i wieżowcami
+  - action: download_github
+    src: SparksScripts/Total-Apocalypse
+    ref: main
+    dest: resources/[maps]/total-apocalypse
 
-  - action: download_file
-    url: https://github.com/SparksScripts/Total-Apocalypse/archive/refs/heads/main.zip
-    path: resources/[maps]/total-apocalypse.zip
-    extract: true
-
-  - action: ensure_resource
-    resource: standalone-zombies
-
-  - action: ensure_resource
-    resource: total-apocalypse
-
+  # Zapisz server.cfg
   - action: write_file
     path: server.cfg
     content: |
@@ -36,6 +24,7 @@ tasks:
       sv_maxclients 32
       sv_licenseKey cfxk_1a5jSCK62kxY5mo8mMLTS_3QyiL1
 
+      # Podstawowe zasoby
       ensure mapmanager
       ensure chat
       ensure spawnmanager
@@ -44,8 +33,9 @@ tasks:
       ensure hardcap
       ensure scoreboard
 
-      # === ZOMBIE MOD ===
+      # Zombie + Mapa
       ensure standalone-zombies
       ensure total-apocalypse
 
-      # Dodatkowe (możesz później dodać qb-inventory lub ox_inventory)
+      # Onesync (ważne przy wielu zombie)
+      onesync on
