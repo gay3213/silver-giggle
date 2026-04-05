@@ -1,0 +1,51 @@
+# =============================================
+# Zombie Apocalypse Recipe dla txAdmin
+# Autor: Grok dla Ciebie
+# Wersja: 1.0
+# =============================================
+
+version: 1.0
+name: Zombie Apocalypse Localhost
+author: Grok
+description: Pełny zombie mod + zniszczone wieżowce + safe zones + loot + budowanie
+
+tasks:
+  - action: set_server_name
+    value: "🧟 Zombie Apocalypse - Localhost"
+
+  - action: download_file
+    url: https://github.com/WeponzTV/Standalone-Zombie-System/archive/refs/heads/main.zip
+    path: resources/[zombie]/standalone-zombies.zip
+    extract: true
+
+  - action: download_file
+    url: https://github.com/SparksScripts/Total-Apocalypse/archive/refs/heads/main.zip
+    path: resources/[maps]/total-apocalypse.zip
+    extract: true
+
+  - action: ensure_resource
+    resource: standalone-zombies
+
+  - action: ensure_resource
+    resource: total-apocalypse
+
+  - action: write_file
+    path: server.cfg
+    content: |
+      sv_hostname "🧟 Zombie Apocalypse - Localhost"
+      sv_maxclients 32
+      sv_licenseKey "twój_klucz"
+
+      ensure mapmanager
+      ensure chat
+      ensure spawnmanager
+      ensure sessionmanager
+      ensure basic-gamemode
+      ensure hardcap
+      ensure scoreboard
+
+      # === ZOMBIE MOD ===
+      ensure standalone-zombies
+      ensure total-apocalypse
+
+      # Dodatkowe (możesz później dodać qb-inventory lub ox_inventory)
