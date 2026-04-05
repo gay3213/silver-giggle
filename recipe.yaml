@@ -1,48 +1,47 @@
-name: Zombie Apocalypse + Budowanie + Ekwipunek + ALT Loot
-version: 1.3
-author: Grok dla Ciebie
-description: Zombie + mapa + ox_inventory + ox_target (ALT loot zombie) + budowanie
+name: Zombie Apocalypse + Budowanie + ALT Loot
+version: 1.4
+author: Grok
+description: Zombie + ox_inventory + ox_target (ALT loot zombie) + ox_lib + mapa
 
 tasks:
-  # === ZOMBIE SYSTEM ===
+  # OX LIB (wymagane do inventory i target)
+  - action: download_github
+    src: overextended/ox_lib
+    ref: master
+    dest: resources/[ox]/ox_lib
+
+  # OX TARGET (ALT + oczko do lootowania zabitych zombie)
+  - action: download_github
+    src: overextended/ox_target
+    ref: master
+    dest: resources/[ox]/ox_target
+
+  # OX INVENTORY (zaawansowany ekwipunek z drag & drop)
+  - action: download_github
+    src: overextended/ox_inventory
+    ref: master
+    dest: resources/[ox]/ox_inventory
+
+  # STANDALONE ZOMBIE SYSTEM
   - action: download_github
     src: WeponzTV/Standalone-Zombie-System
     ref: main
     dest: resources/[zombie]/standalone-zombies
 
-  # === MAPA Z ZNISZCZONYMI WIEŻOWCAMI ===
+  # MAPA Z ZNISZCZONYMI WIEŻOWCAMI I BUDYNKAMI
   - action: download_github
     src: SparksScripts/Total-Apocalypse
     ref: main
     dest: resources/[maps]/total-apocalypse
 
-  # === OX LIB (wymagane) ===
-  - action: download_github
-    src: overextended/ox_lib
-    ref: main
-    dest: resources/[ox]/ox_lib
-
-  # === OX TARGET (ALT + oczko do lootowania zombie) ===
-  - action: download_github
-    src: overextended/ox_target
-    ref: main
-    dest: resources/[ox]/ox_target
-
-  # === OX INVENTORY (ekwipunek z drag & drop) ===
-  - action: download_github
-    src: overextended/ox_inventory
-    ref: main
-    dest: resources/[ox]/ox_inventory
-
-  # === SERVER.CFG ===
+  # SERVER.CFG
   - action: write_file
-    path: server.cfg
-    content: |
-      sv_hostname "🧟 Zombie Apocalypse - Localhost [Budowanie + ALT Loot]"
+    file: server.cfg
+    data: |
+      sv_hostname "🧟 Zombie Apocalypse - ALT Loot + Budowanie"
       sv_maxclients 32
-      sv_licenseKey cfxk_1a5jSCK62kxY5mo8mMLTS_3QyiL1     # ← ZMIEŃ na swój pełny klucz!
-
-      # Podstawowe
+      
+      # Podstawowe zasoby
       ensure mapmanager
       ensure chat
       ensure spawnmanager
@@ -58,6 +57,5 @@ tasks:
       ensure standalone-zombies
       ensure total-apocalypse
 
-      # Ważne przy zombie
       onesync on
-      setr ox:locale "pl"   # polski język w ekwipunku
+      setr ox:locale "pl"
