@@ -1,6 +1,6 @@
 name: ZombieApocalypseULTRASURVIVAL2026_Full
-description: Pełny rozbudowany mod zombie survival 2026. Oczko + inventory pod ALT, looting zombie (pojazd + pieszo), system budowania baz, zniszczone Sandy Shores + Paleto Bay + całe Los Santos, paski głodu i picia, sklepy z jedzeniem/wodą. Wszystko pobiera się automatycznie.
-version: 2.2
+description: Pełny zombie survival mod 2026 z oczkiem pod ALT, rozbudowanym inventory, lootingiem zombie, budowaniem baz, zniszczonymi mapami (Sandy, Paleto, LS), paskami głodu/pic ia i sklepami. Wszystko pobiera się automatycznie z aktualnych źródeł.
+version: 2.3
 framework: standalone
 type: resource
 
@@ -21,55 +21,42 @@ tasks:
     dest: resources/[ox]/ox_inventory
 
   - action: download_github
-    src: overextended/oxmysql
-    ref: master
+    src: CommunityOx/oxmysql
+    ref: main
     dest: resources/[ox]/oxmysql
 
 key_features:
-  - ALT_eye_system:
+  - ALT_eye_reticle:
       key: "LMENU"
-      hold_to_open: true
-      custom_reticle: true
-      eye_icon: true
+      hold_to_activate: true
+      custom_reticle_and_eye: true
       auto_open_inventory: true
-  - full_inventory:
+  - advanced_inventory:
       slots: 72
-      max_weight: 65.0
-      categories: true
+      max_weight: 65
       apocalypse_theme: true
-      polish_names: true
-  - zombie_looting:
-      eye_mode_only: true
+      polish_translation: true
+  - zombie_looting_via_eye:
       vehicle_runover: true
-      approach_loot: true
-      drop_materials: true
-  - base_building_system:
+      ped_approach: true
+      materials_drop: true
+  - base_building:
       raycast_placement: true
-      material_consumption: true
-  - destroyed_map:
+      materials_required: true
+  - destroyed_map_areas:
       sandy_shores: true
       paleto_bay: true
       los_santos: true
-      high_density_rubble: true
-  - survival_system:
+      high_density: true
+  - survival_mechanics:
       hunger_thirst_hud: true
-      food_water_shops: true
-
-config:
-  Config = {
-      AltKey = 0x12, -- Left Alt
-      EyeModeEnabled = true,
-      LootOnlyInEyeMode = true,
-      DestroyedMapDensity = "high",
-      Locale = "pl"
-  }
+      food_water_from_shops: true
 
 instructions:
-  - "Pobierz wszystko z aktualnych repo CommunityOx."
-  - "Wygeneruj kompletny resource z wszystkimi plikami (client, server, html, stream, config)."
-  - "Custom NUI eye/reticle ma się pojawiać tylko pod ALT i otwierać inventory."
-  - "Looting zombie, budowanie baz i zniszczone obszary mają być w pełni działające."
-  - "Dodaj dużo polskich tłumaczeń (Ekwipunek, Materiały na bazę, Głód, Pragnienie, Buduj, Lootuj itd.)."
-  - "Zrób resource bardzo rozbudowany, zoptymalizowany i gotowy do uruchomienia."
+  - "Użyj wyłącznie CommunityOx repozytoriów (ox_lib, ox_inventory, oxmysql) – to aktualne forki."
+  - "Wygeneruj kompletny resource ze wszystkimi plikami (client/server/html/stream/config)."
+  - "Custom oczko (reticle + eye) pod Left Alt ma otwierać inventory i umożliwiać looting zombie."
+  - "Dodaj polskie tłumaczenia wszędzie gdzie możliwe."
+  - "Zrób mod bardzo rozbudowany, zoptymalizowany i gotowy do uruchomienia po deployment."
 
 generate_full_resource: true
