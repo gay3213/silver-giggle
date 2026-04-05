@@ -1,6 +1,6 @@
 name: ZombieApocalypseULTRASURVIVAL2026_Full
-description: Pełny zombie survival mod 2026 z oczkiem pod ALT, rozbudowanym inventory, lootingiem zombie, budowaniem baz, zniszczonymi mapami (Sandy, Paleto, LS), paskami głodu/pic ia i sklepami. Wszystko pobiera się automatycznie z aktualnych źródeł.
-version: 2.3
+description: Pełny rozbudowany mod zombie z oczkiem pod ALT, inventory, lootingiem zombie (pojazd + pieszo), budowaniem baz, zniszczonymi Sandy Shores, Paleto Bay i Los Santos, paskami głodu/pic ia oraz sklepami. Wszystko pobiera się automatycznie z aktualnych forków CommunityOx.
+version: 2.4
 framework: standalone
 type: resource
 
@@ -26,37 +26,18 @@ tasks:
     dest: resources/[ox]/oxmysql
 
 key_features:
-  - ALT_eye_reticle:
-      key: "LMENU"
-      hold_to_activate: true
-      custom_reticle_and_eye: true
-      auto_open_inventory: true
-  - advanced_inventory:
-      slots: 72
-      max_weight: 65
-      apocalypse_theme: true
-      polish_translation: true
-  - zombie_looting_via_eye:
-      vehicle_runover: true
-      ped_approach: true
-      materials_drop: true
-  - base_building:
-      raycast_placement: true
-      materials_required: true
-  - destroyed_map_areas:
-      sandy_shores: true
-      paleto_bay: true
-      los_santos: true
-      high_density: true
-  - survival_mechanics:
-      hunger_thirst_hud: true
-      food_water_from_shops: true
+  - ALT_eye_reticle_system: "Przytrzymanie Left Alt włącza oczko + otwiera inventory"
+  - advanced_inventory: "72 sloty, kategorie, apocalypse theme, polskie nazwy"
+  - zombie_looting: "Tylko w trybie oczka – najazd pojazdem lub podejście"
+  - base_building: "Raycast placement + zużycie materiałów"
+  - destroyed_map: "Wysoka gęstość rubble w Sandy Shores, Paleto Bay i całym LS"
+  - survival_hud: "Paski głodu i picia + sklepy z jedzeniem/wodą"
 
 instructions:
-  - "Użyj wyłącznie CommunityOx repozytoriów (ox_lib, ox_inventory, oxmysql) – to aktualne forki."
-  - "Wygeneruj kompletny resource ze wszystkimi plikami (client/server/html/stream/config)."
-  - "Custom oczko (reticle + eye) pod Left Alt ma otwierać inventory i umożliwiać looting zombie."
-  - "Dodaj polskie tłumaczenia wszędzie gdzie możliwe."
-  - "Zrób mod bardzo rozbudowany, zoptymalizowany i gotowy do uruchomienia po deployment."
+  - "Użyj wyłącznie CommunityOx repozytoriów (ox_lib, ox_inventory, oxmysql)."
+  - "Wygeneruj kompletny, gotowy resource ze wszystkimi plikami."
+  - "Custom reticle + eye icon ma się pojawiać tylko pod ALT."
+  - "Dodaj polskie tłumaczenia (Ekwipunek, Materiały, Głód, Pragnienie, Lootuj zombie, Buduj bazę itd.)."
+  - "Zrób mod bardzo rozbudowany i zoptymalizowany."
 
 generate_full_resource: true
