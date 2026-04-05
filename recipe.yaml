@@ -34,7 +34,7 @@ tasks:
     content: |
       sv_hostname "🧟 Zombie Apocalypse - Localhost"
       sv_maxclients 32
-      sv_licenseKey "twój_klucz"
+      sv_licenseKey cfxk_1a5jSCK62kxY5mo8mMLTS_3QyiL1
 
       ensure mapmanager
       ensure chat
