@@ -1,30 +1,48 @@
-name: Zombie Apocalypse Localhost
-version: 1.2
-author: Grok
-description: Prosty zombie mod + mapa z zniszczonymi wieżowcami
+name: Zombie Apocalypse + Budowanie + Ekwipunek + ALT Loot
+version: 1.3
+author: Grok dla Ciebie
+description: Zombie + mapa + ox_inventory + ox_target (ALT loot zombie) + budowanie
 
 tasks:
-  # Pobierz Standalone Zombie System
+  # === ZOMBIE SYSTEM ===
   - action: download_github
     src: WeponzTV/Standalone-Zombie-System
     ref: main
     dest: resources/[zombie]/standalone-zombies
 
-  # Pobierz mapę z zniszczonymi budynkami i wieżowcami
+  # === MAPA Z ZNISZCZONYMI WIEŻOWCAMI ===
   - action: download_github
     src: SparksScripts/Total-Apocalypse
     ref: main
     dest: resources/[maps]/total-apocalypse
 
-  # Utwórz / nadpisz server.cfg
+  # === OX LIB (wymagane) ===
+  - action: download_github
+    src: overextended/ox_lib
+    ref: main
+    dest: resources/[ox]/ox_lib
+
+  # === OX TARGET (ALT + oczko do lootowania zombie) ===
+  - action: download_github
+    src: overextended/ox_target
+    ref: main
+    dest: resources/[ox]/ox_target
+
+  # === OX INVENTORY (ekwipunek z drag & drop) ===
+  - action: download_github
+    src: overextended/ox_inventory
+    ref: main
+    dest: resources/[ox]/ox_inventory
+
+  # === SERVER.CFG ===
   - action: write_file
     path: server.cfg
     content: |
-      sv_hostname "🧟 Zombie Apocalypse - Localhost"
+      sv_hostname "🧟 Zombie Apocalypse - Localhost [Budowanie + ALT Loot]"
       sv_maxclients 32
-      sv_licenseKey cfxk_1a5jSCK62kxY5mo8mMLTS_3QyiL1  # ← ZMIEŃ na swój pełny klucz!
+      sv_licenseKey cfxk_1a5jSCK62kxY5mo8mMLTS_3QyiL1     # ← ZMIEŃ na swój pełny klucz!
 
-      # Podstawowe zasoby FiveM
+      # Podstawowe
       ensure mapmanager
       ensure chat
       ensure spawnmanager
@@ -33,9 +51,13 @@ tasks:
       ensure hardcap
       ensure scoreboard
 
-      # Nasze zasoby
+      # OX + Zombie + Mapa
+      ensure ox_lib
+      ensure ox_target
+      ensure ox_inventory
       ensure standalone-zombies
       ensure total-apocalypse
 
       # Ważne przy zombie
       onesync on
+      setr ox:locale "pl"   # polski język w ekwipunku
