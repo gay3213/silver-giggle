@@ -1,106 +1,75 @@
-name: fivem-zombie-survival-advanced
-description: Bardzo rozbudowany mod zombie survival dla FiveM (standalone + ox_lib + oxmysql). Pod klawiszem ALT (LMENU) otwiera się zaawansowane oczko (custom NUI reticle/eye) + inventory. Looting zombie przez najazd pojazdem lub podejście w trybie oczka. System budowania baz z materiałami z zombie. Zniszczone Sandy Shores, Paleto Bay i całe miasto Los Santos. Sklepy z wodą i jedzeniem + pasek głodu/pic ia (HUD). Wszystko w pełni konfigurowalne i zoptymalizowane.
-version: 2.0
-framework: fivem
+name: ZombieApocalypseULTRASURVIVAL2026_Full
+description: Pełny rozbudowany mod zombie survival 2026. Oczko + inventory pod ALT, looting zombie (pojazd + pieszo), system budowania baz, zniszczone Sandy Shores + Paleto Bay + całe Los Santos, paski głodu i picia, sklepy z jedzeniem/wodą. Wszystko pobiera się automatycznie.
+version: 2.2
+framework: standalone
 type: resource
-dependencies: 
-  - ox_lib
-  - oxmysql
-  - onesync_infinity
 
-project_structure:
-  fxmanifest.lua: true
-  config.lua: true
-  client/main.lua: true
-  client/inventory.lua: true
-  client/building.lua: true
-  client/zombies.lua: true
-  client/looting.lua: true
-  client/survival.lua: true
-  server/main.lua: true
-  server/database.lua: true
-  html/inventory.html: true
-  html/inventory.js: true
-  html/inventory.css: true
-  html/hud.html: true
-  html/hud.js: true
-  stream/: true
+dependencies:
+  - ox_lib
+  - ox_inventory
+  - oxmysql
+
+tasks:
+  - action: download_github
+    src: CommunityOx/ox_lib
+    ref: main
+    dest: resources/[ox]/ox_lib
+
+  - action: download_github
+    src: CommunityOx/ox_inventory
+    ref: main
+    dest: resources/[ox]/ox_inventory
+
+  - action: download_github
+    src: overextended/oxmysql
+    ref: master
+    dest: resources/[ox]/oxmysql
 
 key_features:
-  - ALT_key_system: 
-      description: "Przytrzymanie LMENU (Left Alt) włącza tryb 'oczko' – widoczny custom reticle/eye icon (NUI + DrawMarker + 3D text). W tym trybie inventory otwiera się automatycznie (drag & drop, kategorie, waga, sloty). Drugie naciśnięcie ALT zamyka wszystko."
+  - ALT_eye_system:
       key: "LMENU"
-      nui: true
-  - zombie_looting_with_oczko:
-      description: "W trybie oczka (ALT) najazd pojazdem na zombie lub podejście na piechotę (raycast + distance < 3m) triggeruje instant loot. Zombie dropią materiały na bazę (scrap_metal, wood_plank, nails, cloth, concrete, wire, battery itd.). Loot menu z animacją + dźwiękiem."
+      hold_to_open: true
+      custom_reticle: true
+      eye_icon: true
+      auto_open_inventory: true
+  - full_inventory:
+      slots: 72
+      max_weight: 65.0
+      categories: true
+      apocalypse_theme: true
+      polish_names: true
+  - zombie_looting:
+      eye_mode_only: true
       vehicle_runover: true
-      ped_loot: true
-      loot_table: ["scrap_metal", "wood_plank", "nails", "cloth", "concrete", "wire", "battery", "ammo", "medkit"]
+      approach_loot: true
+      drop_materials: true
   - base_building_system:
-      description: "Pełny system budowania baz. Z inventory wybierasz item 'build_mode', otwiera się menu ox_lib z listą obiektów (ściany, podłogi, drzwi, dach, skrzynie, generator, turrets). Raycast placement + preview. Obiekty zapisywane w bazie danych z ownerem, można lockować. Materiały zużywane z inventory."
-      placement: "raycast + prop spawning"
-      persistence: "oxmysql - table `player_bases`"
-      objects_list: ["prop_wood_wall", "prop_metal_wall", "prop_door", "prop_floor", "prop_roof", "prop_storage_box", "prop_generator"]
-  - destroyed_map_areas:
-      description: "Automatyczne spawnowanie zniszczonych propsów w kluczowych lokacjach (Sandy Shores, Paleto Bay, całe miasto LS). Rubble, wraki samochodów, spalone budynki, powalone drzewa, bariery drogowe. Spawn co restart + co 30 minut refresh."
-      sandy_shores_coords: "1700-2500, 3000-4200"
-      paleto_bay_coords: "-500 to 0, 6000-6800"
-      los_santos_city_coords: "-1500 to 1500, -1500 to 1500"
-      props: ["prop_rubble_01", "prop_rubble_02", "prop_burnt_car", "prop_tree_fallen", "prop_barrier_01"]
-  - survival_mechanics:
-      description: "Paski głodu i picia w HUD (NUI). Głód i pragnienie spada co sekundę. Jedzenie i picie z inventory lub sklepów replenishes. Przy 0% = śmierć + respawn w safe zone."
-      hunger_rate: 0.08
-      thirst_rate: 0.12
-      items_food: ["bread", "burger", "canned_food"]
-      items_water: ["water_bottle", "cola"]
-  - shops_system:
-      description: "Sklepy (24/7, liquor, hardware) w bezpiecznych strefach. Markery + blipy. NPC sprzedawca. Kupno wody i jedzenia za gotówkę. Można sprzedać loot z zombie."
-      locations: 
-        - name: "24/7 Sandy"
-          coords: "1961.5, 3740.5, 32.0"
-        - name: "Paleto Store"
-          coords: "-160.0, 6320.0, 31.0"
-        - name: "LS City Shop"
-          coords: "125.0, -300.0, 45.0"
-      sell_loot: true
-  - zombie_ai:
-      description: "Hordy zombie (model peds: a_m_m_skidrow_01, a_m_y_methhead_01, a_f_y_juggalo_01 z aggressive flags). Atakują graczy, biegają, dźwięki. Respawn w destroyed areas. Kill = loot + exp."
-      count: 80-120 na serwer
-      horde_events: true
+      raycast_placement: true
+      material_consumption: true
+  - destroyed_map:
+      sandy_shores: true
+      paleto_bay: true
+      los_santos: true
+      high_density_rubble: true
+  - survival_system:
+      hunger_thirst_hud: true
+      food_water_shops: true
 
-database_tables:
-  - player_inventory: "id, citizenid, items (json)"
-  - player_bases: "id, citizenid, objects (json with coords and props)"
-  - player_stats: "citizenid, hunger, thirst"
-
-ui_design:
-  theme: "dark apocalypse (czarny + czerwony akcent)"
-  inventory: "drag & drop grid 8x8 + kategorie (materials, food, weapons, tools)"
-  hud: "paski głód/pic ia na dole ekranu + eye icon kiedy ALT aktywny"
-  language: "polski + angielski fallback"
-
-optimization:
-  - entity_pool_for_zombies
-  - net_events_only_when_needed
-  - thread_sleeps
-  - distance_culling_for_props_and_zombies
-
-config_example_snippet: |
+config:
   Config = {
-      AltKey = 0x12, -- LMENU Left Alt
-      MaxZombies = 120,
-      LootChance = 0.85,
-      BaseBuildDistance = 50.0,
-      DestroyedAreas = { sandy = {...}, paleto = {...}, city = {...} }
+      AltKey = 0x12, -- Left Alt
+      EyeModeEnabled = true,
+      LootOnlyInEyeMode = true,
+      DestroyedMapDensity = "high",
+      Locale = "pl"
   }
 
-instructions_for_generator: 
-  - "Wygeneruj kompletny, działający resource. Wszystkie pliki muszą być gotowe do wrzucenia na serwer."
-  - "Użyj ox_lib dla menu i zone."
-  - "NUI inventory musi obsługiwać ALT + drag & drop."
-  - "Looting oczkiem musi działać na pojazdach i pieszo."
-  - "Dodaj polskie tłumaczenia w config (np. 'Głód', 'Pragnienie', 'Buduj bazę', 'Lootuj zombie')."
-  - "Zrób wszystko bardzo rozbudowane – dużo komentarzy, configów, anty-cheat basic."
-  - "Na koniec dodaj readme.md z instrukcją instalacji."
+instructions:
+  - "Pobierz wszystko z aktualnych repo CommunityOx."
+  - "Wygeneruj kompletny resource z wszystkimi plikami (client, server, html, stream, config)."
+  - "Custom NUI eye/reticle ma się pojawiać tylko pod ALT i otwierać inventory."
+  - "Looting zombie, budowanie baz i zniszczone obszary mają być w pełni działające."
+  - "Dodaj dużo polskich tłumaczeń (Ekwipunek, Materiały na bazę, Głód, Pragnienie, Buduj, Lootuj itd.)."
+  - "Zrób resource bardzo rozbudowany, zoptymalizowany i gotowy do uruchomienia."
 
 generate_full_resource: true
