@@ -10,7 +10,7 @@ author: Grok
 description: Pełny zombie mod + zniszczone wieżowce + safe zones + loot + budowanie
 
 tasks:
-  - action: set_server_name
+  - action: rolePLAY
     value: "🧟 Zombie Apocalypse - Localhost"
 
   - action: download_file
