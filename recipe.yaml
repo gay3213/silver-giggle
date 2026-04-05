@@ -1,62 +1,29 @@
-name: Zombie Apocalypse + Budowanie + ALT Loot
-version: 1.4
+name: Zombie Apocalypse - Ultra Minimal
+version: 1.0
 author: Grok
-description: Zombie + ox_inventory + ox_target (ALT loot zombie) + ox_lib + mapa
 
 tasks:
-  # OX LIB (wymagane do inventory i target)
   - action: download_github
     src: overextended/ox_lib
     ref: master
     dest: resources/[ox]/ox_lib
 
-  # OX TARGET (ALT + oczko do lootowania zabitych zombie)
   - action: download_github
     src: overextended/ox_target
     ref: master
     dest: resources/[ox]/ox_target
 
-  # OX INVENTORY (zaawansowany ekwipunek z drag & drop)
   - action: download_github
     src: overextended/ox_inventory
     ref: master
     dest: resources/[ox]/ox_inventory
 
-  # STANDALONE ZOMBIE SYSTEM
   - action: download_github
     src: WeponzTV/Standalone-Zombie-System
     ref: main
     dest: resources/[zombie]/standalone-zombies
 
-  # MAPA Z ZNISZCZONYMI WIEŻOWCAMI I BUDYNKAMI
   - action: download_github
     src: SparksScripts/Total-Apocalypse
     ref: main
     dest: resources/[maps]/total-apocalypse
-
-  # SERVER.CFG
-  - action: write_file
-    file: server.cfg
-    data: |
-      sv_hostname "🧟 Zombie Apocalypse - ALT Loot + Budowanie"
-      sv_maxclients 32
-      sv_licenseKey cfxk_1a5jSCK62kxY5mo8mMLTS_3QyiL1     # ← ZMIEŃ na swój pełny klucz!
-
-      # Podstawowe zasoby
-      ensure mapmanager
-      ensure chat
-      ensure spawnmanager
-      ensure sessionmanager
-      ensure basic-gamemode
-      ensure hardcap
-      ensure scoreboard
-
-      # OX + Zombie + Mapa
-      ensure ox_lib
-      ensure ox_target
-      ensure ox_inventory
-      ensure standalone-zombies
-      ensure total-apocalypse
-
-      onesync on
-      setr ox:locale "pl"
