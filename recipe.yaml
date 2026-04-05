@@ -1,43 +1,77 @@
 name: ZombieApocalypseULTRASURVIVAL2026_Full
-description: Pełny rozbudowany mod zombie z oczkiem pod ALT, inventory, lootingiem zombie (pojazd + pieszo), budowaniem baz, zniszczonymi Sandy Shores, Paleto Bay i Los Santos, paskami głodu/pic ia oraz sklepami. Wszystko pobiera się automatycznie z aktualnych forków CommunityOx.
-version: 2.4
+description: Pełny rozbudowany mod zombie survival 2026. Oczko pod ALT (reticle + eye), zaawansowany inventory, looting zombie (pojazd + pieszo), system budowania baz, zniszczone Sandy Shores + Paleto Bay + Los Santos, paski głodu i picia + sklepy. Wszystko z automatycznym setupem.
+version: 2.6
 framework: standalone
 type: resource
 
-dependencies:
-  - ox_lib
-  - ox_inventory
-  - oxmysql
-
 tasks:
+  # Pobieranie ox_lib
   - action: download_github
     src: CommunityOx/ox_lib
     ref: main
     dest: resources/[ox]/ox_lib
 
+  # Pobieranie ox_inventory
   - action: download_github
     src: CommunityOx/ox_inventory
     ref: main
     dest: resources/[ox]/ox_inventory
 
-  - action: download_github
-    src: CommunityOx/oxmysql
-    ref: main
-    dest: resources/[ox]/oxmysql
+  # Pobieranie oxmysql jako zip (najpewniejsze)
+  - action: download_file
+    url: https://github.com/CommunityOx/oxmysql/releases/latest/download/oxmysql.zip
+    dest: resources/[ox]/oxmysql.zip
+    extract: true
+    extract_to: resources/[ox]/oxmysql
 
-key_features:
-  - ALT_eye_reticle_system: "Przytrzymanie Left Alt włącza oczko + otwiera inventory"
-  - advanced_inventory: "72 sloty, kategorie, apocalypse theme, polskie nazwy"
-  - zombie_looting: "Tylko w trybie oczka – najazd pojazdem lub podejście"
-  - base_building: "Raycast placement + zużycie materiałów"
-  - destroyed_map: "Wysoka gęstość rubble w Sandy Shores, Paleto Bay i całym LS"
-  - survival_hud: "Paski głodu i picia + sklepy z jedzeniem/wodą"
+  # Tworzenie server.cfg
+  - action: write_file
+    file: ./server.cfg
+    data: |
+      # =============================================
+      # Zombie Apocalypse ULTRA SURVIVAL 2026
+      # =============================================
+
+      sv_hostname "Zombie Apocalypse ULTRA SURVIVAL 2026"
+      sv_maxclients {{maxClients}}
+      sv_licenseKey "{{svLicense}}"
+
+      # Database connection - zmień na swoje dane po instalacji
+      set mysql_connection_string "server=127.0.0.1;database=zapocalypse;userid=root;password=;"
+
+      # Resources
+      ensure oxmysql
+      ensure ox_lib
+      ensure ox_inventory
+
+      # Twój główny mod zombie
+      ensure zombie_apocalypse
+
+      # Podstawowe FiveM resources
+      ensure chat
+      ensure spawnmanager
+      ensure sessionmanager
+      ensure basic-gamemode
+      ensure hardcap
+      ensure mapmanager
+
+      # Ustawienia
+      sv_scriptHookAllowed 0
+      sv_enforceGameBuild 3258
+      load_server_icon "server.png"   # dodaj własny plik server.png jeśli chcesz
+
+      # Dodatkowe ustawienia (możesz edytować później)
+      sets locale "pl-PL"
+      sets tags "zombie, survival, roleplay, apocalypse"
 
 instructions:
-  - "Użyj wyłącznie CommunityOx repozytoriów (ox_lib, ox_inventory, oxmysql)."
-  - "Wygeneruj kompletny, gotowy resource ze wszystkimi plikami."
-  - "Custom reticle + eye icon ma się pojawiać tylko pod ALT."
-  - "Dodaj polskie tłumaczenia (Ekwipunek, Materiały, Głód, Pragnienie, Lootuj zombie, Buduj bazę itd.)."
-  - "Zrób mod bardzo rozbudowany i zoptymalizowany."
+  - "Pobierz ox_lib i ox_inventory z CommunityOx."
+  - "Pobierz oxmysql jako zip i wypakuj automatycznie."
+  - "Utwórz pełny server.cfg z ensure dla wszystkich potrzebnych resources."
+  - "Wygeneruj kompletny resource 'zombie_apocalypse' ze wszystkimi funkcjami."
+  - "Custom oczko (reticle + eye icon) pod klawiszem Left Alt (LMENU) – przytrzymanie otwiera inventory + umożliwia looting zombie."
+  - "Dodaj polskie tłumaczenia (Ekwipunek, Głód, Pragnienie, Materiały na bazę, Buduj bazę, Lootuj zombie itd.)."
+  - "Zniszczone mapy z dużą ilością rubble w Sandy Shores, Paleto Bay i całym Los Santos."
+  - "Paski głodu i picia + sklepy z jedzeniem i wodą."
 
 generate_full_resource: true
