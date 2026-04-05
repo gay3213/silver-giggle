@@ -40,7 +40,8 @@ tasks:
     data: |
       sv_hostname "🧟 Zombie Apocalypse - ALT Loot + Budowanie"
       sv_maxclients 32
-      
+      sv_licenseKey cfxk_1a5jSCK62kxY5mo8mMLTS_3QyiL1     # ← ZMIEŃ na swój pełny klucz!
+
       # Podstawowe zasoby
       ensure mapmanager
       ensure chat
