@@ -1,10 +1,10 @@
 name: Zombie Apocalypse Localhost
-version: 1.1
-author: Grok dla Ciebie
-description: Standalone zombie + zniszczone wieżowce + safe zones + loot
+version: 1.2
+author: Grok
+description: Prosty zombie mod + mapa z zniszczonymi wieżowcami
 
 tasks:
-  # Pobierz system zombie (standalone)
+  # Pobierz Standalone Zombie System
   - action: download_github
     src: WeponzTV/Standalone-Zombie-System
     ref: main
@@ -16,15 +16,15 @@ tasks:
     ref: main
     dest: resources/[maps]/total-apocalypse
 
-  # Zapisz server.cfg
+  # Utwórz / nadpisz server.cfg
   - action: write_file
     path: server.cfg
     content: |
       sv_hostname "🧟 Zombie Apocalypse - Localhost"
       sv_maxclients 32
-      sv_licenseKey cfxk_1a5jSCK62kxY5mo8mMLTS_3QyiL1
+      sv_licenseKey cfxk_1a5jSCK62kxY5mo8mMLTS_3QyiL1  # ← ZMIEŃ na swój pełny klucz!
 
-      # Podstawowe zasoby
+      # Podstawowe zasoby FiveM
       ensure mapmanager
       ensure chat
       ensure spawnmanager
@@ -33,9 +33,9 @@ tasks:
       ensure hardcap
       ensure scoreboard
 
-      # Zombie + Mapa
+      # Nasze zasoby
       ensure standalone-zombies
       ensure total-apocalypse
 
-      # Onesync (ważne przy wielu zombie)
+      # Ważne przy zombie
       onesync on
