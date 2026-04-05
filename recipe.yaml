@@ -1,6 +1,6 @@
-name: ZombieApocalypseULTRASURVIVAL2026_Full
-description: Pełny mod zombie survival z oczkiem pod ALT, rozbudowanym inventory, lootingiem zombie, budowaniem baz, zniszczonymi mapami (Sandy, Paleto, LS), paskami głodu i picia. Tworzy server.cfg automatycznie.
-version: 2.7
+name: ZombieApocalypseULTRASURVIVAL2026_Full_Final
+description: Kompletny rozbudowany mod zombie survival 2026. Oczko pod ALT + inventory, looting zombie, budowanie baz, zniszczone Sandy/Paleto/LS, paski głodu i picia. Tworzy server.cfg automatycznie.
+version: 2.8
 framework: standalone
 type: resource
 
@@ -17,37 +17,33 @@ tasks:
     ref: main
     dest: resources/[ox]/ox_inventory
 
-  # oxmysql jako zip (najpewniejsze)
+  # oxmysql jako zip (najpewniejsze w 2026)
   - action: download_file
-    url: https://github.com/CommunityOx/oxmysql/releases/latest/download/oxmysql.zip
+    url: https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip
     dest: resources/[ox]/oxmysql.zip
     extract: true
     extract_to: resources/[ox]/oxmysql
 
-  # Tworzenie server.cfg (OBOWIĄZKOWE!)
+  # Tworzenie server.cfg (to rozwiązuje błąd walidacji)
   - action: write_file
     file: ./server.cfg
     data: |
-      # =====================================================
-      # Zombie Apocalypse ULTRA SURVIVAL 2026 - server.cfg
-      # =====================================================
-
       sv_hostname "🧟 Zombie Apocalypse ULTRA SURVIVAL 2026 🧟"
-      sv_maxclients {{maxClients}}
-      sv_licenseKey "{{svLicense}}"
+      sv_maxclients {{32}}
+      sv_licenseKey "{{cfxk_1Xd0r7bPqHrzdTTBpcVel_4QNHS4}}"
 
-      # Database (zmień dane po instalacji jeśli używasz MySQL)
+      # Database - zmień po pierwszym uruchomieniu jeśli potrzeba
       set mysql_connection_string "{{dbConnectionString}}"
 
-      # Główne resources
+      # Resources
       ensure oxmysql
       ensure ox_lib
       ensure ox_inventory
 
-      # Twój mod zombie
+      # Główny mod zombie
       ensure zombie_apocalypse
 
-      # Podstawowe FiveM resources
+      # Podstawowe resources
       ensure chat
       ensure spawnmanager
       ensure sessionmanager
@@ -55,30 +51,25 @@ tasks:
       ensure hardcap
       ensure mapmanager
 
-      # Ustawienia
       sv_scriptHookAllowed 0
       sv_enforceGameBuild 3258
       sets locale "pl-PL"
-      sets tags "zombie, survival, apocalypse, roleplay, polski"
-
-      # Zalecane dodatkowe linie (możesz edytować później w txAdmin)
-      # sv_endpoint "twój_ip:port"   <-- dodaj jeśli potrzeba
-      # load_server_icon "server.png"
+      sets tags "zombie, survival, apocalypse, polski"
 
 key_features:
-  - ALT_eye_system: "Przytrzymanie Left Alt włącza custom oczko (reticle + eye) i otwiera inventory"
-  - inventory: "Rozbudowany drag & drop, 72 sloty, kategorie, apocalypse theme, polskie nazwy"
-  - zombie_looting: "Looting tylko w trybie oczka – najazd pojazdem lub podejście"
-  - base_building: "System budowania baz z raycast i zużyciem materiałów"
-  - destroyed_map: "Dużo rubble, wraków i zniszczonych budynków w Sandy Shores, Paleto Bay i Los Santos"
-  - survival: "Paski głodu i picia + sklepy z jedzeniem i wodą"
+  - ALT_eye_reticle: "Przytrzymanie Left Alt włącza custom oczko (reticle + eye icon) i automatycznie otwiera inventory"
+  - inventory: "72 sloty, kategorie (materiały, jedzenie, broń, narzędzia), drag & drop, apocalypse dark theme, polskie tłumaczenia"
+  - zombie_looting: "Działa tylko w trybie oczka – najazd pojazdem lub podejście na piechotę. Drop materiałów na bazę"
+  - base_building: "Pełny system budowania z raycast placement, preview i zużyciem materiałów z inventory"
+  - destroyed_map: "Duża ilość rubble, wraków samochodów, spalonych budynków w Sandy Shores, Paleto Bay i całym Los Santos"
+  - survival_hud: "Paski głodu i picia + sklepy z jedzeniem i wodą"
 
 instructions:
-  - "Pobierz ox_lib, ox_inventory i oxmysql."
-  - "Utwórz kompletny plik server.cfg z placeholderami txAdmin."
-  - "Wygeneruj pełny resource o nazwie 'zombie_apocalypse' ze wszystkimi funkcjami."
-  - "Dodaj polskie tłumaczenia w całym modzie."
-  - "Custom oczko pod ALT ma być widoczne tylko w trybie ALT i umożliwiać looting + otwieranie inventory."
-  - "Zrób mod bardzo rozbudowany i gotowy do użycia."
+  - "Pobierz ox_lib i ox_inventory z CommunityOx oraz oxmysql jako zip."
+  - "Utwórz pełny plik server.cfg z placeholderami txAdmin."
+  - "Wygeneruj kompletny resource o nazwie 'zombie_apocalypse' zawierający wszystkie żądane funkcje."
+  - "Dodaj polskie tłumaczenia (Ekwipunek, Głód, Pragnienie, Materiały na bazę, Buduj bazę, Lootuj zombie itp.)."
+  - "Custom oczko ma być widoczne tylko pod ALT i umożliwiać looting + otwieranie inventory."
+  - "Zrób mod bardzo rozbudowany, zoptymalizowany i gotowy do uruchomienia."
 
 generate_full_resource: true
